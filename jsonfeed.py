@@ -60,6 +60,7 @@ class Item(Element):
     date_published: datetime = dataclasses.field(default=None)
     date_modified: datetime = dataclasses.field(default=None)
     authors: List[Person] = dataclasses.field(default_factory=list)
+    author: Person = dataclasses.field(default=None)  # Deprecated in JSON Feed 1.1 
     tags: List[str] = dataclasses.field(default_factory=list)
     language: str = dataclasses.field(default=None)
     attachments: List[Attachment] = dataclasses.field(default_factory=list)
@@ -76,6 +77,7 @@ class Feed(Element):
     icon: str = dataclasses.field(default=None)
     favicon: str = dataclasses.field(default=None)
     authors: List[Person] = dataclasses.field(default_factory=list)
+    author: Person = dataclasses.field(default=None)  # Deprecated in JSON Feed 1.1 
     next_url: str = dataclasses.field(default=None)
     language: str = dataclasses.field(default=None)
     expired: bool = dataclasses.field(default=None)
