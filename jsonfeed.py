@@ -16,15 +16,16 @@ class Element:
     def to_json(self, indent=None, ensure_ascii=False, skip_none=True):
         return json.dumps(self.to_dict(skip_none=skip_none), indent=indent, ensure_ascii=ensure_ascii, default=self.__json_default)
 
-    def __filter_none(self, d: dict) -> dict:
-        if isinstance(d, dict):
-            return {k: self.__filter_none(v) for k, v in d.items() if v is not None}
-        elif isinstance(d, list):
-            return list(self.__filter_none(v) for v in d)
-        elif isinstance(d, tuple):
-            return tuple(self.__filter_none(v) for v in d)
+    def __filter_none(self, obj) -> dict:
+        if isinstance(obj, dict):
+            items = map(lambda item: (item[0], self.__filter_none(item[1])), obj.items())
+            return {k: v for k, v in items if v is not None}
+        elif isinstance(obj, list):
+            return list(self.__filter_none(v) for v in obj) if obj else None
+        elif isinstance(obj, tuple):
+            return tuple(self.__filter_none(v) for v in obj) if obj else None
         else:
-            return d
+            return obj
 
     def __json_default(self, obj):
         if isinstance(obj, datetime):
@@ -58,10 +59,10 @@ class Item(Element):
     banner_image: str = dataclasses.field(default=None)
     date_published: datetime = dataclasses.field(default=None)
     date_modified: datetime = dataclasses.field(default=None)
-    authors: List[Person] = dataclasses.field(default=None)
-    tags: List[str] = dataclasses.field(default=None)
+    authors: List[Person] = dataclasses.field(default_factory=list)
+    tags: List[str] = dataclasses.field(default_factory=list)
     language: str = dataclasses.field(default=None)
-    attachments: List[Attachment] = dataclasses.field(default=None)
+    attachments: List[Attachment] = dataclasses.field(default_factory=list)
 
 @dataclasses.dataclass
 class Feed(Element):
@@ -74,11 +75,11 @@ class Feed(Element):
     next_url: str = dataclasses.field(default=None)
     icon: str = dataclasses.field(default=None)
     favicon: str = dataclasses.field(default=None)
-    authors: List[Person] = dataclasses.field(default=None)
+    authors: List[Person] = dataclasses.field(default_factory=list)
     next_url: str = dataclasses.field(default=None)
     language: str = dataclasses.field(default=None)
     expired: bool = dataclasses.field(default=None)
-    hubs: List[object] = dataclasses.field(default=None)
+    hubs: List[object] = dataclasses.field(default_factory=list)
     items: List[Item] = dataclasses.field(default_factory=list)
 
 def exsample_of_use():

@@ -1,6 +1,6 @@
 # jsonfeed_dataclass
 
-This is the class definitions which represents the structure of [JSON Feed](https://jsonfeed.org).  
+This is the single-file class definitions which represents the structure of [JSON Feed 1.1](https://jsonfeed.org/version/1.1).  
 
 ## Class
 
