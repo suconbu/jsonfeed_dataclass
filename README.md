@@ -1,4 +1,4 @@
-# jsonfeed_dataclasses
+# jsonfeed_dataclass
 
 This is the class definitions which represents the structure of [JSON Feed](https://jsonfeed.org).  
 
@@ -11,7 +11,10 @@ This is the class definitions which represents the structure of [JSON Feed](http
   Represents a each article/entry of feed.
 
 * Person  
-  Represents a person information that using in author field, etc.
+  Represents a person information that using in author field.
+
+* Attachment  
+  Represents an external resource such as an audio or video.
 
 * Element  
   Base class of Feed, Item and Parson class.  
